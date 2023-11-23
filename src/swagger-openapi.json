@@ -1,0 +1,227 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentación de la Api de Eventos",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/events": {
+            "post": {
+                "summary": "Crear un evento",
+                "requestBody": {
+                    "description": "Información del evento para crear",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Evento"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Evento creado con éxito"
+                    },
+                    "500": {
+                        "description": "Error al crear el evento"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Obteniendo todos los eventos",
+                "description": "Se obtiene todos los eventos guardados en la base de datos",
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Evento"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Eventos no encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "properties": {
+                                        "type": "object",
+                                        "message ": {
+                                            "type": "object",
+                                            "example": "Evento no encontrado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al obtener los eventos"
+                    }
+                }
+            }
+        },
+        "/api/events/{id}": {
+            "get": {
+                "summary": "Obtener un evento por ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID del evento a obtener",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Evento"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Evento no encontrado"
+                    },
+                    "500": {
+                        "description": "Error al obtener el evento"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Actualizar un evento",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID del evento a actualizar",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Información del evento para actualizar",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Evento"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Evento actualizado con éxito"
+                    },
+                    "404": {
+                        "description": "Evento no encontrado"
+                    },
+                    "500": {
+                        "description": "Error al actualizar el evento"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Eliminar un evento",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID del evento a eliminar",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Evento eliminado con éxito"
+                    },
+                    "404": {
+                        "description": "Evento no encontrado"
+                    },
+                    "500": {
+                        "description": "Error al eliminar el evento"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Evento": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Nombre del evento",
+                        "example": "For the little ones"
+                    },
+                    "category": {
+                        "type": "string",
+                        "description": "Categoría del evento",
+                        "example": "Party"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Fecha del evento",
+                        "example": "2024-02-23"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción del evento",
+                        "example": "Bring your kid with his favorite costume."
+                    },
+                    "image": {
+                        "type": "string",
+                        "description": "Imagen del evento",
+                        "example": "https://i.postimg.cc/Nj8NwSGy/little-ones.jpg"
+                    },
+                    "place": {
+                        "type": "string",
+                        "description": "Lugar del evento",
+                        "example": "Monumental Theater"
+                    },
+                    "price": {
+                        "type": "number",
+                        "description": "Precio del evento",
+                        "example": 1
+                    },
+                    "capacity": {
+                        "type": "number",
+                        "description": "Capacidad del evento",
+                        "example": 50000
+                    },
+                    "estimate": {
+                        "type": "number",
+                        "description": "Estimación del evento",
+                        "example": 50000
+                    },
+                    "assistance": {
+                        "type": "number",
+                        "description": "Asistencia al evento",
+                        "example": 50000
+                    }
+                }
+            }
+        }
+    }
+}

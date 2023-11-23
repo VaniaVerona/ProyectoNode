@@ -17,7 +17,7 @@ const eventoSchema = mongoose.Schema({
     type: String,
   },
   place: String,
-  precio: {
+  price: {
     type: Number,
     min: 0,
   },
